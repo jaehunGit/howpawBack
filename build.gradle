@@ -32,7 +32,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	// smtp
-	implementation 'org.springframework.boot::spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 //	//OAuth2.0
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'

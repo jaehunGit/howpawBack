@@ -46,7 +46,6 @@ public class AccountService {
 
         if (check != null) {
 
-
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "중복된 ID 입니다");
         }
 
