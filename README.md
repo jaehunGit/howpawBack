@@ -1,4 +1,4 @@
-# Springboot side project BackEnd ( Gradle + JPA + MariaDB )
+# Springboot side project BackEnd ( Gradle + JPA + MariaDB + Redis )
 
 **Summary : 회원가입 + 로그인 + 상품**
 
@@ -10,6 +10,7 @@
 - [x] 상품 정보 저장
 - [x] 상품 조회
 - [x] 유사 상품 불러오기
+- [x] Email 인증
 
 ## 사용한 툴 
 
