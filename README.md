@@ -1,6 +1,6 @@
 # Springboot side project BackEnd ( Gradle + JPA + MariaDB )
 
-**Summary : 회원가입 + 로그인 + 상품필터 + 상품상세**
+**Summary : 회원가입 + 로그인 + 상품**
 
 ## Features
 
