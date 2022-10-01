@@ -14,7 +14,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-        @PostMapping("/api/signUpUser")
+    @PostMapping("/api/signUpUser")
     public ResponseEntity SignUpUser(@RequestBody AccountEntity accountEntity, Error error) {
 
 
@@ -33,4 +33,21 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.UserLoginService(accountEntity));
     }
 
+    @GetMapping("/api/AddFavoriteProduct")
+    public ResponseEntity addFavoriteProduct(@RequestParam String pdcNumber, String userId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.addFavoriteProductService(pdcNumber, userId));
+    }
+
+    @GetMapping("/api/getFavoriteProduct")
+    public ResponseEntity getFavoriteProduct(@RequestParam String pdcNumber, String userId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.getFavoriteProductService(pdcNumber, userId));
+    }
+
+    @GetMapping("/api/removeFavoriteProduct")
+    public ResponseEntity removeFavoriteProduct(@RequestParam String pdcNumber, String userId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.removeFavoriteProductService(pdcNumber, userId));
+    }
 }

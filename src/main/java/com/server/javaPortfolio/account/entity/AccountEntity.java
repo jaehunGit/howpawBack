@@ -29,7 +29,7 @@ public class AccountEntity {
     @Column(columnDefinition = "VARCHAR(100) comment 'user_email'", nullable = false)
     private String userEmail;
 
-    @Column(columnDefinition = "VARCHAR(255) comment 'favorite_product'", nullable = true)
+    @Column(columnDefinition = "VARCHAR(255) comment 'favorite_product'", nullable = false)
     private String favoriteProduct;
 
     @Column(columnDefinition = "VARCHAR(255) comment 'SNS타입'", nullable = false)

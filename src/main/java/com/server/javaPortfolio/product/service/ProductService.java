@@ -83,8 +83,8 @@ public class ProductService {
         productType = productType.split(",")[0];
 
 
-        List<ProductEntity> result = productRepository.findByProductTypeContainsAndPdcNumberNot(productType,pdcNumber).stream()
-                .sorted((s1, s2) -> Integer.compare(s1.getWorstRating()+s2.getBestRating(), s1.getBestRating() + s2.getWorstRating()))
+        List<ProductEntity> result = productRepository.findByProductTypeContainsAndPdcNumberNot(productType, pdcNumber).stream()
+                .sorted((s1, s2) -> Integer.compare(s1.getWorstRating() + s2.getBestRating(), s1.getBestRating() + s2.getWorstRating()))
                 .limit(10)
                 .collect(Collectors.toList());
 
