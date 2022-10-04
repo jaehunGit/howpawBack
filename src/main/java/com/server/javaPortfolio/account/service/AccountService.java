@@ -7,6 +7,7 @@ import com.server.javaPortfolio.product.entity.ResponseMessage;
 import javassist.tools.web.BadHttpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,14 +23,19 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     public ResponseMessage signUpUserService(AccountEntity accountEntity) {
 
         AccountEntity check = accountRepository.findByUserId(accountEntity.getUserId());
 
+        String encodedPassword = passwordEncoder.encode(accountEntity.getUserPassword());
+
+
         if (check == null) {
             check = AccountEntity.builder()
                     .userId(accountEntity.getUserId())
-                    .userPassword(accountEntity.getUserPassword())
+                    .userPassword(encodedPassword)
                     .userEmail(accountEntity.getUserEmail())
                     .nickName(accountEntity.getNickName())
                     .snsType("none")
@@ -63,7 +69,7 @@ public class AccountService {
 
         if (check != null) {
 
-            if (inputPassword.equals(check.getUserPassword())) {
+            if (passwordEncoder.matches(inputPassword, check.getUserPassword())) {
 
                 check.setLastConnectedDateTime(LocalDateTime.now());
 
@@ -83,6 +89,8 @@ public class AccountService {
         AccountEntity dbTable = accountRepository.findByUserId(userId);
 
         String temp = dbTable.getFavoriteProduct();
+
+        System.out.println( temp );
 
         if (temp == null) {
             temp = pdcNumber;
@@ -135,4 +143,6 @@ public class AccountService {
 
         return ResponseMessage.builder().statusCode(HttpStatus.OK).build();
     }
+
+
 }

@@ -25,7 +25,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.7.4'
 
-	// 암호화
+	// 시큐리티
 	implementation 'org.springframework.boot::spring-boot-starter-security'
 
 	// 레디스

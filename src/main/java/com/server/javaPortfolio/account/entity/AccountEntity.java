@@ -20,7 +20,7 @@ public class AccountEntity {
     @Column(columnDefinition = "VARCHAR(50) comment 'userID'", nullable = false)
     private String userId;
 
-    @Column(columnDefinition = "VARCHAR(50) comment 'user_password'", nullable = false)
+    @Column(columnDefinition = "VARCHAR(255) comment 'user_password'", nullable = false)
     private String userPassword;
 
     @Column(columnDefinition = "VARCHAR(50) comment 'nick_name'", nullable = false)
@@ -29,7 +29,7 @@ public class AccountEntity {
     @Column(columnDefinition = "VARCHAR(100) comment 'user_email'", nullable = false)
     private String userEmail;
 
-    @Column(columnDefinition = "VARCHAR(255) comment 'favorite_product'", nullable = false)
+    @Column(columnDefinition = "VARCHAR(255) comment 'favorite_product'", nullable = true)
     private String favoriteProduct;
 
     @Column(columnDefinition = "VARCHAR(255) comment 'SNS타입'", nullable = false)

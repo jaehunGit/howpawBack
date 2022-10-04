@@ -40,6 +40,7 @@ public class ProductController {
 
     @PostMapping("/api/GetProduct")
     public List<Object[]> getProduct() {
+
         return productService.getProductService();
     }
 
