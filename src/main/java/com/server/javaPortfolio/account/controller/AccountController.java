@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @CrossOrigin(origins = "localhost:3000")
 @RestController
 @RequiredArgsConstructor
@@ -33,10 +35,11 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.UserLoginService(accountEntity));
     }
 
-    @GetMapping("/api/AddFavoriteProduct")
-    public ResponseEntity addFavoriteProduct(@RequestParam String pdcNumber, String userId) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(accountService.addFavoriteProductService(pdcNumber, userId));
+    @PostMapping("/api/AddFavoriteProduct")
+    public ResponseEntity addFavoriteProduct(@RequestBody Map<String,String> map) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.addFavoriteProductService(map.get("pdcNumber"), map.get("userId")));
     }
 
     @GetMapping("/api/getFavoriteProduct")
@@ -45,9 +48,10 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.getFavoriteProductService(pdcNumber, userId));
     }
 
-    @GetMapping("/api/removeFavoriteProduct")
-    public ResponseEntity removeFavoriteProduct(@RequestParam String pdcNumber, String userId) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(accountService.removeFavoriteProductService(pdcNumber, userId));
+    @PostMapping("/api/removeFavoriteProduct")
+    public ResponseEntity removeFavoriteProduct(@RequestBody Map<String,String> map) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.removeFavoriteProductService(map.get("pdcNumber"), map.get("userId")));
     }
 }

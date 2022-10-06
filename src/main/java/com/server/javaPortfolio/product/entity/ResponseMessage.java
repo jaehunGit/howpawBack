@@ -12,4 +12,6 @@ public class ResponseMessage {
     private HttpStatus statusCode;
     private String message;
     private Integer code;
+    private String id;
+    private String nickName;
 }

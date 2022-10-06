@@ -75,7 +75,7 @@ public class AccountService {
 
                 accountRepository.save(check);
 
-                return ResponseMessage.builder().statusCode(HttpStatus.OK).message("로그인 성공!").build();
+                return ResponseMessage.builder().statusCode(HttpStatus.OK).message("로그인 성공!").nickName(check.getNickName()).build();
             } else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다.");
             }
@@ -90,7 +90,6 @@ public class AccountService {
 
         String temp = dbTable.getFavoriteProduct();
 
-        System.out.println( temp );
 
         if (temp == null) {
             temp = pdcNumber;
