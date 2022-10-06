@@ -1,3 +1,4 @@
+
 package com.server.javaPortfolio.Oauth.service;
 
 import com.server.javaPortfolio.account.entity.*;
@@ -67,7 +68,7 @@ public class OAuthService {
 
         AccountEntity account = accountRepository.findByUserId(responseEntity.getBody().getSub());
 
-        if( account == null ) {
+        if (account == null) {
             account = AccountEntity.builder().userEmail(responseEntity.getBody().getEmail())
                     .lastConnectedDateTime(LocalDateTime.now())
                     .userId(responseEntity.getBody().getSub())
@@ -90,14 +91,10 @@ public class OAuthService {
 
         ResponseEntity<NaverUser> responseEntity = restTemplate.postForEntity(testUrl, parameters, NaverUser.class);
 
-        System.out.println( responseEntity.getBody().getResponse().getEmail() );
-        System.out.println( responseEntity.getBody().getResponse().getId() );
-        System.out.println( responseEntity.getBody().getResponse().getNickname() );
+        AccountEntity account = accountRepository.findByUserId(responseEntity.getBody().getResponse().getId());
 
-        AccountEntity account = accountRepository.findByUserId( responseEntity.getBody().getResponse().getId() );
-
-        if( account == null ) {
-            account = AccountEntity.builder().userEmail(responseEntity.getBody().getResponse().getEmail() )
+        if (account == null) {
+            account = AccountEntity.builder().userEmail(responseEntity.getBody().getResponse().getEmail())
                     .lastConnectedDateTime(LocalDateTime.now())
                     .userId(responseEntity.getBody().getResponse().getId())
                     .snsType("NAVER")
