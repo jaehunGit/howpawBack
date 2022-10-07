@@ -3,25 +3,25 @@ package com.server.javaPortfolio.account.service;
 
 import com.server.javaPortfolio.account.entity.AccountEntity;
 import com.server.javaPortfolio.account.repository.AccountRepository;
+import com.server.javaPortfolio.product.entity.ProductEntity;
 import com.server.javaPortfolio.product.entity.ResponseMessage;
-import javassist.tools.web.BadHttpRequest;
+import com.server.javaPortfolio.product.reapository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.management.BadAttributeValueExpException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AccountService {
 
     private final AccountRepository accountRepository;
+
+    private final ProductRepository productRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -75,7 +75,7 @@ public class AccountService {
 
                 accountRepository.save(check);
 
-                return ResponseMessage.builder().statusCode(HttpStatus.OK).message("로그인 성공!").nickName(check.getNickName()).build();
+                return ResponseMessage.builder().statusCode(HttpStatus.OK).message("로그인 성공!").nickName(check.getNickName()).userEmail(check.getUserEmail()).build();
             } else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다.");
             }
@@ -136,6 +136,10 @@ public class AccountService {
 
         String result = String.join(",", temp);
 
+        if ( result.equals("") ) {
+            result = null;
+        }
+
         dbTable.setFavoriteProduct(result);
 
         accountRepository.save(dbTable);
@@ -143,5 +147,38 @@ public class AccountService {
         return ResponseMessage.builder().statusCode(HttpStatus.OK).build();
     }
 
+    public ResponseMessage GetFavoriteService(String userId ) {
+        System.out.println( userId );
 
+        AccountEntity dbTable = accountRepository.findByUserId( userId );
+
+        if ( dbTable.getFavoriteProduct() == null ) {
+            return ResponseMessage.builder().statusCode(HttpStatus.OK).message("0").build();
+        } else {
+            String productList = dbTable.getFavoriteProduct();
+
+            String[] result = productList.split(",");
+
+            System.out.println(Arrays.toString(result));
+
+            System.out.println( result.length );
+
+            String[][] productArr = new String[result.length][5];
+
+            for ( int i=0; i< result.length; i++ ) {
+                ProductEntity productTable = productRepository.findByPdcNumber( result[i] );
+
+                productArr[i][0] = productTable.getProductName();
+                productArr[i][1] = productTable.getMainImageRoute();
+                productArr[i][2] = productTable.getPdcNumber();
+                productArr[i][3] = productTable.getBrandName();
+                productArr[i][4] = productTable.getProductType();
+            }
+
+
+            System.out.println(Arrays.deepToString(productArr));
+
+            return ResponseMessage.builder().statusCode(HttpStatus.OK).productCount(String.valueOf(result.length)).productArr(productArr).build();
+        }
+    }
 }

@@ -54,4 +54,10 @@ public class AccountController {
 
         return ResponseEntity.status(HttpStatus.OK).body(accountService.removeFavoriteProductService(map.get("pdcNumber"), map.get("userId")));
     }
+
+    @GetMapping("/api/GetFavorite")
+    public ResponseEntity GetFavoriteCount(@RequestParam String userId) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.GetFavoriteService( userId ));
+    }
 }
